@@ -1,5 +1,5 @@
 # Copyright (c) 2020 Lee Clark
-# SPDX-License-Identifier: MITNFA
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 from gi.repository import Gio
 from gi.repository import GLib
