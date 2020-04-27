@@ -5,12 +5,18 @@ import sys
 
 from optparse import OptionParser
 
+import gi
+gi.require_version("Gtk", "3.0")
+
 def main():
     parser = OptionParser(version="0.1")
 
     options, args = parser.parse_args()
 
-    sys.exit(0)
+    from mtt.application import MagnifierTweaks
+    app = MagnifierTweaks()
+    status = app.run(None)
+    sys.exit(status)
 
 if __name__ == '__main__':
     main()
