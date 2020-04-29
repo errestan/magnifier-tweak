@@ -1,11 +1,11 @@
 # Copyright (c) 2020 Lee Clark
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gio
 from gi.repository import GLib
 from gi.repository import Gtk
 
 from mtt.view import Window
+
 
 class MagnifierTweaks(Gtk.Application):
 
@@ -18,5 +18,8 @@ class MagnifierTweaks(Gtk.Application):
         if not self.win:
             self.win = Window(self)
             self.win.show_all()
-
+            self.win.back_button.props.visible = False
         self.win.present()
+
+    def quit_cb(self, action, parameter):
+        self.quit()

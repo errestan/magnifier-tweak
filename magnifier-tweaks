@@ -7,19 +7,25 @@ from optparse import OptionParser
 
 from gi import require_version
 
+# We need to specify the required version of some Gtk components.
+require_version("Gtk", "3.0")
+require_version("Handy", "0.0")
+
+from mtt.application import MagnifierTweaks
+
+
 def main():
     parser = OptionParser(version="0.1")
+    parser.add_option("-p", "--prefix",
+                      help="Installation prefix (for gsettings schema, themes, etc)",
+                      metavar="[/, /usr]")
 
     options, args = parser.parse_args()
 
-    from mtt.application import MagnifierTweaks
     app = MagnifierTweaks()
     status = app.run(None)
     sys.exit(status)
 
-# We need to specify the required version of some Gtk components.
-require_version("Gtk", "3.0")
-require_version("Handy", "0.0")
 
 if __name__ == '__main__':
     main()
