@@ -1,11 +1,18 @@
 # Copyright (c) 2020 Lee Clark
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gdk
-from gi.repository import Gio
-from gi.repository import GObject
-from gi.repository import Gtk
-from gi.repository import Handy
+import gi
+
+# We need to specify the required version of some Gtk components.
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("Handy", "0.0")
+
+import gi.repository.Gdk as Gdk
+import gi.repository.Gio as Gio
+import gi.repository.Gtk as Gtk
+import gi.repository.Handy as Handy
+import gi.repository.GObject as GObject
 
 
 class Window(Gtk.ApplicationWindow):

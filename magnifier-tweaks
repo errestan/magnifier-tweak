@@ -1,31 +1,21 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import argparse
 import sys
 
-from optparse import OptionParser
-
-from gi import require_version
-
-# We need to specify the required version of some Gtk components.
-require_version("Gtk", "3.0")
-require_version("Handy", "0.0")
-
-from mtt.application import MagnifierTweaks
-
-
-def main():
-    parser = OptionParser(version="0.1")
-    parser.add_option("-p", "--prefix",
-                      help="Installation prefix (for gsettings schema, themes, etc)",
-                      metavar="[/, /usr]")
-
-    options, args = parser.parse_args()
-
-    app = MagnifierTweaks()
-    status = app.run(None)
-    sys.exit(status)
+import mtt.application
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--prefix",
+                        help="Installation prefix (for gsettings schema, themes, etc)",
+                        metavar="[/, /usr]")
+    parser.add_argument("-v", "--version", action="version", version="0.1")
+
+    args = parser.parse_args()
+
+    app = mtt.application.MagnifierTweaks()
+    status = app.run(None)
+    sys.exit(status)
