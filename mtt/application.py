@@ -3,18 +3,17 @@
 
 import gi
 
+import mtt.view
+
 # We need to specify the required version of some Gtk components.
 gi.require_version("Gtk", "3.0")
 gi.require_version("Handy", "0.0")
 
-import gi.repository.GLib as GLib
-import gi.repository.Gtk as Gtk
-
-import mtt.view
+import gi.repository.GLib as GLib  # noqa: E402
+import gi.repository.Gtk as Gtk  # noqa: E402
 
 
 class MagnifierTweaks(Gtk.Application):
-
     def __init__(self):
         GLib.set_application_name("Magnifier Tweak Tool")
         Gtk.Application.__init__(self, application_id="com.magnifier.tweaks")

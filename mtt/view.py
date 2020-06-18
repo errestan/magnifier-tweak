@@ -8,18 +8,16 @@ gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("Handy", "0.0")
 
-import gi.repository.Gdk as Gdk
-import gi.repository.Gio as Gio
-import gi.repository.Gtk as Gtk
-import gi.repository.Handy as Handy
-import gi.repository.GObject as GObject
+import gi.repository.Gdk as Gdk  # noqa: E402
+import gi.repository.Gio as Gio  # noqa: E402
+import gi.repository.Gtk as Gtk  # noqa: E402
+import gi.repository.Handy as Handy  # noqa: E402
+import gi.repository.GObject as GObject  # noqa: E402
 
 
 class Window(Gtk.ApplicationWindow):
     def __init__(self, app):
-        Gtk.ApplicationWindow.__init__(self,
-                                       application=app,
-                                       show_menubar=False)
+        Gtk.ApplicationWindow.__init__(self, application=app, show_menubar=False)
         self.set_size_request(-1, 700)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_name("com.magnifier.tweaks")
@@ -45,8 +43,9 @@ class Window(Gtk.ApplicationWindow):
         self.main_box.child_set(sidebar, name="sidebar")
         self.main_box.child_set(content, name="content")
         self.main_box.set_visible_child_name("sidebar")
-        self.main_box.bind_property("visible-child-name", titlebar,
-                                    "visible-child-name", GObject.BindingFlags.SYNC_CREATE)
+        self.main_box.bind_property(
+            "visible-child-name", titlebar, "visible-child-name", GObject.BindingFlags.SYNC_CREATE
+        )
 
         start_pane_size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
         start_pane_size_group.add_widget(sidebar)
@@ -59,8 +58,7 @@ class Window(Gtk.ApplicationWindow):
         widget = self.listbox.get_row_at_index(0)
         self.listbox.select_row(widget)
 
-        Gtk.Settings.get_default().connect("notify::gtk-decoration-layout",
-                                           self._update_decorations)
+        Gtk.Settings.get_default().connect("notify::gtk-decoration-layout", self._update_decorations)
         self.connect("key-press-event", self._on_key_press)
 
         self.add(self.main_box)
@@ -78,8 +76,7 @@ class Window(Gtk.ApplicationWindow):
         lbl.get_style_context().add_class("title")
         icon1 = Gtk.Image()
         icon1.set_from_icon_name("edit-find-symbolic", Gtk.IconSize.MENU)
-        icon2 = Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="open-menu-symbolic"),
-                                         Gtk.IconSize.BUTTON)
+        icon2 = Gtk.Image.new_from_gicon(Gio.ThemedIcon(name="open-menu-symbolic"), Gtk.IconSize.BUTTON)
 
         self.button = Gtk.ToggleButton()
         self.button.add(icon1)
@@ -136,7 +133,7 @@ class Window(Gtk.ApplicationWindow):
         sidebar_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
 
         self.entry = Gtk.SearchEntry(placeholder_text="Search Tweaks…")
-        if (Gtk.check_version(3, 22, 20) is None):
+        if Gtk.check_version(3, 22, 20) is None:
             self.entry.set_input_hints(Gtk.InputHints.NO_EMOJI)
         self.entry.connect("search-changed", self._on_search)
 
@@ -154,8 +151,7 @@ class Window(Gtk.ApplicationWindow):
         self.listbox.add(self.make_list_row("Cross hairs"))
 
         scroll = Gtk.ScrolledWindow()
-        scroll.set_policy(Gtk.PolicyType.NEVER,
-                          Gtk.PolicyType.AUTOMATIC)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scroll.add(self.listbox)
 
         sidebar_box.pack_start(self.searchbar, False, False, 0)
@@ -192,7 +188,7 @@ class Window(Gtk.ApplicationWindow):
     def _on_key_press(self, widget, event):
         keyname = Gdk.keyval_name(event.keyval)
 
-        if keyname == 'Escape' and self.button.get_active():
+        if keyname == "Escape" and self.button.get_active():
             if self.entry.is_focus():
                 self.button.set_active(False)
             else:
@@ -200,11 +196,11 @@ class Window(Gtk.ApplicationWindow):
             return True
 
         if event.state & Gdk.ModifierType.CONTROL_MASK:
-            if keyname == 'f':
+            if keyname == "f":
                 self.button.set_active(True)
                 return True
 
-        if keyname == 'F10':
+        if keyname == "F10":
             self.menu_btn.activate()
             return True
 
